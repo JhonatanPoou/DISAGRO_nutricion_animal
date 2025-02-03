@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Producción</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container" id="menuPrincipal">
+        <img id="logo" src="Logo.jpg" alt="Logo Empresa">
+        <h2>Selecciona un animal</h2>
+        <div class="menu">
+            <button onclick="seleccionarAnimal('pollo')">Pollo</button>
+            <button onclick="seleccionarAnimal('ponedora')">Gallina Ponedora</button>
+            <button onclick="seleccionarAnimal('cerdos')">Cerdos</button>
+        </div>
+    </div>
+
+    <div id="simulacionPollo" class="hidden">
+        <img id="logoSimulacion" src="Logo.jpg" alt="Logo Empresa">
+
+        <!-- 🔥 Sección de encabezado (h2 + leyenda en la misma fila) -->
+        <div class="encabezado">
+            <h2>Simulación para Pollos</h2>
+
+            <div class="leyenda-container">
+                <p><strong>Línea Genética:</strong> COBB</p>
+                <p><strong>Días de la semana:</strong> 7</p>
+                <p><strong>Kilo:</strong> 1000 gramos</p>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <div class="selection-group">
+               <label><b>Seleccione el género del pollo:</b></label>
+                <div class="radio-group">
+                    <input type="radio" id="macho" name="genero" value="Macho">
+                    <label for="macho">Macho</label>
+                    <input type="radio" id="hembra" name="genero" value="Hembra">
+                    <label for="hembra">Hembra</label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="cantidadMachos">Cantidad<br>de pollos:</label>
+                <input type="number" id="cantidadMachos" min="0" placeholder="Ingrese cantidad">
+            </div>
+
+            <div class="input-group">
+                <label for="dosisNucleo">Dosis Núcleo<br>Ton (kg):</label>
+                <input type="number" id="dosisNucleo" min="0" step="0.1" placeholder="Ingrese kg">
+            </div>
+
+            <div class="input-group">
+                <label for="dosisVitaminas">Dosis Premezcla Vitaminas (kg/t):</label>
+                <input type="number" id="dosisVitaminas" min="0" step="0.1" placeholder="Ingrese kg">
+            </div>
+        </div>
+
+<!-- Contenedor de la Tabla -->
+<div class="tabla-container">
+    <table id="tablaProduccion">
+        <thead>
+            <tr>
+                <th>Semana</th>
+                <th>Fase</th>
+                <th>Días</th>
+                <th>Consumo Acumulado (Kg/Animal/Fase Mínima)</th>
+                <th>Consumo/Lote (Kg)</th>
+                <th>Kg de Núcleo DISAGRO</th>
+                <th>Bolsas de 20Kg Núcleo DISAGRO</th>
+                <th>Kg de Premezcla Vitaminas DISAGRO</th>
+                <th>Bolsas de 20Kg Premezcla Vitaminas DISAGRO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Las filas se llenarán dinámicamente con JavaScript -->
+        </tbody>
+    </table>
+</div>
+        <div class="button-container">
+            <button onclick="volverMenu()">Volver</button>
+	<button id="btnNuevo">Nuevo</button>
+    <button id="btnExportarPDF">Exportar a PDF</button>
+    <button id="btnExportarJPG">Exportar a JPG</button>
+
+
+
+        </div>
+    </div>
+<!-- 🔥 Contenedor para la exportación de JPG (NO visible en la página) -->
+<div id="contenedorJPG" style="display: none; width: 1000px; padding: 20px; background: white; border: 2px solid #ddd;">
+    <h2 style="text-align: center; font-family: 'Arial', sans-serif; font-size: 20px; font-weight: bold;">
+        Simulación de Consumo
+    </h2>
+
+    <p style="font-size: 16px;"><b>Cantidad de pollos:</b> <span id="jpgCantidadPollos"></span> (<span id="jpgGenero"></span>)</p>
+    <p style="font-size: 16px;"><b>Dosis Núcleo:</b> <span id="jpgDosisNucleo"></span> kg/t</p>
+    <p style="font-size: 16px;"><b>Dosis Premezcla Vitaminas:</b> <span id="jpgDosisVitaminas"></span> kg/t</p>
+
+    <div id="tablaJPG" style="margin-top: 20px;">
+        <!-- Aquí se copiará la tabla dinámicamente -->
+    </div>
+
+    <p style="text-align: center; font-weight: bold; margin-top: 20px;">Equipo de Nutrición Animal, DISAGRO.</p>
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.30/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
