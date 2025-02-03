@@ -1,0 +1,255 @@
+/* Configuración general */
+body {
+    font-family: "Century Gothic", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: white;
+    overflow-x: hidden;
+}
+
+/* Evita que haya desplazamiento innecesario */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Contenedor Principal */
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Logo */
+#logo {
+    width: 250px;
+    margin-bottom: 10px;
+}
+
+/*  Logo dentro de la simulación */
+#logoSimulacion {
+    width: 200px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
+
+/* Menú */
+.menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Botones */
+.menu button, .button-container button {
+    width: 180px;
+    height: 60px;
+    font-size: 18px;
+font-family: "Century Gothic", sans-serif;
+
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    background-color: #00796B;
+    color: white;
+    transition: 0.3s ease-in-out;
+}
+
+.menu button:hover, .button-container button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor de Simulación */
+#simulacionPollo {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/*  Encabezado fijo con Inputs en la parte superior */
+.encabezado {
+    width: 100%;
+    padding: 10px 20px;
+    background: #f8f8f8;
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    justify-content: space-between; /*  Mantiene el h2 a la izquierda */
+    align-items: center;
+    flex-wrap: wrap; /*  Permite ajuste en pantallas pequeñas */
+}
+
+
+/*  Ajusta el título dentro de la sección */
+#simulacionPollo h2 {
+    margin: 0;
+    padding: 15px 20px;
+}
+
+/* Formulario */
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px 20px;
+    background: white; /*  Se asegura de que los inputs tengan fondo blanco */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/*  Estilos de la Leyenda */
+
+.leyenda-container {
+    background: #2e2e2e;
+    padding: 0px 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center; /*  Mueve el texto más a la izquierda */
+    gap: 20px; /*  Espaciado entre los elementos */
+    font-size: 14px;
+    color: white;
+    width: auto;
+    flex: 1;
+    min-width: 250px;
+    max-width: 75%;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+    margin-left: -20px; /*  Mueve ligeramente el texto hacia la izquierda */
+}
+
+/* Inputs */
+.input-group {
+    display: flex;
+    flex-direction: column; /*  Coloca el label arriba del input */
+    align-items: center; /*  Asegura que los elementos estén centrados */
+    text-align: center;
+    width: 180px; /*  Ajusta el ancho de cada grupo para que se alineen */
+}
+
+.input-group label {
+    font-size: 12px; /*  Reduce el tamaño del texto */
+    font-weight: bold;
+    margin-bottom: 5px; /*  Espaciado entre el texto y el input */
+}
+.input-group input {
+    width: 160px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Información General */
+.info-container {
+    width: 100%;
+    max-width: 600px;
+    background: #f4f4f4;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+    text-align: left;
+    font-size: 14px;
+    color: #3c97c;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/*  POSICIONA EL BOTÓN "VOLVER" EN LA PARTE INFERIOR */
+.button-container {
+    position: fixed; /*  Fijar la posición en la parte inferior */
+    bottom: 100px; /*  Separación desde el borde inferior */
+    left: 50%;
+    transform: translateX(-50%); /*  Centrar los botones */
+    display: flex;
+    gap: 10px;
+    background: white; /*  Asegurar contraste */
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.button-container button {
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 8px;
+    background-color: #2e2e2e;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s;
+}
+
+.button-container button:hover {
+    background-color: #00796B; /* 🔥 Verde al pasar el mouse */
+    transform: scale(1.05);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+cursor: pointer;
+}
+
+/* Efecto de barrido */
+.hidden {
+    transform: translateX(-100vw);
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s;
+}
+
+.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+
+
+.tabla-container {
+    width: 90%;
+max-width: 1100px;
+    margin: 20px auto;
+    overflow-x: auto; /* Permite desplazamiento si la tabla es muy grande */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+font-size: 14px;
+}
+
+th {
+    background: #004d00; /* Color verde oscuro similar al diseño actual */
+    color: white;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background: #f4f4f4;
+}
+
+tbody tr:hover {
+    background: #c8e6c9; /* Color suave al pasar el mouse */
+cursor: pointer;
+}
