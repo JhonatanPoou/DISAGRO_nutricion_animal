@@ -51,6 +51,7 @@ function volverMenu() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const generoRadios = document.querySelectorAll("input[name='genero']");
+    const buttonContainer = document.querySelector(".button-container");
     const tablaBody = document.querySelector("#tablaProduccion tbody");
     const cantidadPollosInput = document.getElementById("cantidadMachos");
     const dosisNucleoInput = document.getElementById("dosisNucleo");
@@ -62,9 +63,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //  Verifica si los elementos existen antes de agregar eventos
     if (generoRadios.length > 0) {
+        
         generoRadios.forEach(radio => {
+            
             radio.addEventListener("change", function () {
                 actualizarTabla(this.value);
+                 if (document.querySelector("input[name='genero']:checked")) {
+                buttonContainer.style.display = "flex"; // 🔥 Mostrar botones si hay selección
+                }
             });
         });
     } else {
