@@ -173,9 +173,10 @@ font-family: "Century Gothic", sans-serif;
 
 /*  POSICIONA EL BOTÓN "VOLVER" EN LA PARTE INFERIOR */
 .button-container {
-    position: fixed; /*  Fijar la posición en la parte inferior */
-    bottom: 100px; /*  Separación desde el borde inferior */
-    left: 50%;
+    position: relative; 
+    bottom: 0; /*  Separación desde el borde inferior */
+    left: 0;
+   width: 100%;
     transform: translateX(-50%); /*  Centrar los botones */
     display: flex;
     gap: 10px;
@@ -183,6 +184,7 @@ font-family: "Century Gothic", sans-serif;
     padding: 10px 15px;
     border-radius: 10px;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
 }
 
 .button-container button {
