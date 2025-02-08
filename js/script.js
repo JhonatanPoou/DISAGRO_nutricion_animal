@@ -53,83 +53,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const generoRadios = document.querySelectorAll("input[name='genero']");
     const buttonContainer = document.querySelector(".button-container");
     const tablaBody = document.querySelector("#tablaProduccion tbody");
+    const tablaGramosBody = document.querySelector("#tablaGramos tbody");
+    const tituloTabla = document.getElementById("tituloTablaGramos");
     const cantidadPollosInput = document.getElementById("cantidadMachos");
     const dosisNucleoInput = document.getElementById("dosisNucleo");
     const dosisVitaminasInput = document.getElementById("dosisVitaminas");
-    const volverBtn = document.getElementById("btnVolver");
-    const nuevoBtn = document.getElementById("btnNuevo");
-    const exportarPDFBtn = document.getElementById("btnExportarPDF");
-    const exportarJPGBtn = document.getElementById("btnExportarJPG");
 
     //  Verifica si los elementos existen antes de agregar eventos
     if (generoRadios.length > 0) {
-        
         generoRadios.forEach(radio => {
-            
             radio.addEventListener("change", function () {
                 actualizarTabla(this.value);
-                 if (document.querySelector("input[name='genero']:checked")) {
-                buttonContainer.style.display = "flex"; // 🔥 Mostrar botones si hay selección
+                actualizarTablaGramos(this.value); // 🔥 Actualizar tabla de gramos
+                if (document.querySelector("input[name='genero']:checked")) {
+                    buttonContainer.style.display = "flex"; // 🔥 Mostrar botones si hay selección
                 }
             });
         });
     } else {
         console.error("⚠️ No se encontraron los radio buttons de género.");
     }
-
-    if (cantidadPollosInput) {
-        cantidadPollosInput.addEventListener("input", function () {
-            actualizarTabla(document.querySelector("input[name='genero']:checked")?.value || "Macho");
-        });
-    } else {
-        console.error("⚠️ No se encontró el input de cantidad de pollos.");
-    }
-
-    if (dosisNucleoInput) {
-        dosisNucleoInput.addEventListener("input", function () {
-            actualizarTabla(document.querySelector("input[name='genero']:checked")?.value || "Macho");
-        });
-    }
-
-    if (dosisVitaminasInput) {
-        dosisVitaminasInput.addEventListener("input", function () {
-            actualizarTabla(document.querySelector("input[name='genero']:checked")?.value || "Macho");
-        });
-    }
-
-    if (volverBtn) {
-        volverBtn.addEventListener("click", function () {
-            document.getElementById("simulacionPollo").classList.add("hidden");
-            document.getElementById("menuPrincipal").style.display = "flex";
-        });
-    } else {
-        console.error("⚠️ No se encontró el botón 'Volver'.");
-    }
-
-    if (nuevoBtn) {
-        nuevoBtn.addEventListener("click", function () {
-            limpiarFormulario();
-        });
-    } else {
-        console.error("⚠️ No se encontró el botón 'Nuevo'.");
-    }
-
-    if (exportarPDFBtn) {
-        exportarPDFBtn.addEventListener("click", function () {
-            generarPDF();
-        });
-    } else {
-        console.error("⚠️ No se encontró el botón 'Exportar a PDF'.");
-    }
-
-    if (exportarJPGBtn) {
-        exportarJPGBtn.addEventListener("click", function () {
-            exportarJPG();
-        });
-    } else {
-        console.error("⚠️ No se encontró el botón 'Exportar a JPG'.");
-    }
-
 
     function actualizarTabla(genero) {
         tablaBody.innerHTML = ""; 
@@ -172,6 +115,44 @@ document.addEventListener("DOMContentLoaded", function () {
             tablaBody.innerHTML += fila;
         }
     }
+
+    function actualizarTablaGramos(genero) {
+        tablaGramosBody.innerHTML = ""; // Limpiar tabla
+        let datos = genero === "Macho" ? consumoGramosMacho : consumoGramosHembra;
+        tituloTabla.textContent = genero === "Macho" ? "Consumo Tabla Gramos Machos" : "Consumo Tabla Gramos Hembras";
+
+        datos.forEach(fila => {
+            let row = "<tr>";
+            fila.forEach(valor => {
+                row += `<td>${valor}</td>`;
+            });
+            row += "</tr>";
+            tablaGramosBody.innerHTML += row;
+        });
+    }
+
+    // Datos de consumo en gramos por semana
+    const consumoGramosMacho = [
+        [1, 13, 17, 21, 23, 27, 31, 35, 167, 167],
+        [2, 39, 44, 49, 54, 59, 64, 70, 379, 546],
+        [3, 77, 83, 90, 97, 104, 112, 119, 682, 1228],
+        [4, 124, 130, 136, 142, 148, 154, 160, 994, 2222],
+        [5, 165, 171, 177, 184, 192, 200, 209, 1298, 3520],
+        [6, 212, 215, 218, 221, 225, 229, 233, 1553, 5073]
+    ];
+
+    const consumoGramosHembra = [
+        [1, 13, 17, 21, 23, 27, 31, 35, 167, 167],
+        [2, 37, 44, 47, 54, 57, 63, 68, 370, 537],
+        [3, 73, 79, 84, 89, 92, 98, 103, 618, 1155],
+        [4, 111, 116, 124, 126, 134, 142, 144, 897, 2052],
+        [5, 151, 155, 161, 163, 165, 167, 169, 1131, 3183],
+        [6, 175, 179, 184, 189, 193, 197, 199, 1316, 4499],
+        [7, 203, 203, 205, 204, 207, 208, 209, 1439, 5938],
+        [8, 225, 225, 225, 225, 225, 225, 225, 1575, 7513]
+    ];
+});
+
 
     function limpiarFormulario() {
         cantidadPollosInput.value = "";
