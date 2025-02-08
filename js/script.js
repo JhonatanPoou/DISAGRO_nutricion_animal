@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
         [7, 203, 203, 205, 204, 207, 208, 209, 1439, 5938],
         [8, 225, 225, 225, 225, 225, 225, 225, 1575, 7513]
     ];
-});
+}
 
 
     function limpiarFormulario() {
