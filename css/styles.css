@@ -173,18 +173,18 @@ font-family: "Century Gothic", sans-serif;
 
 /*  POSICIONA EL BOTÓN "VOLVER" EN LA PARTE INFERIOR */
 .button-container {
-    position: relative; 
-    bottom: 0; /*  Separación desde el borde inferior */
+    position: relative; /* 🔥 En lugar de fixed, usa relative */
+    bottom: 0;
     left: 0;
-   width: 100%;
-    transform: translateX(-50%); /*  Centrar los botones */
+    width: 100%;
     display: flex;
+    justify-content: center;
     gap: 10px;
-    background: white; /*  Asegurar contraste */
+    background: white; /* 🔥 Asegurar contraste */
     padding: 10px 15px;
     border-radius: 10px;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
-    margin-top: 20px;
+    margin-top: 20px; /* 🔥 Agrega margen para separarlo de la tabla */
 }
 
 .button-container button {
