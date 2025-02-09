@@ -331,10 +331,7 @@ cursor: pointer;
     font-size: 14px;
 }
 
-/* 🔥 Alternar colores de fila */
-#tablaConsumoFinal tbody tr:nth-child(even) {
-    background: white;
-}
+
 
 /* 🔥 Resaltar última columna (Consumo Acumulado en kg) */
 #tablaConsumoFinal td:last-child {
