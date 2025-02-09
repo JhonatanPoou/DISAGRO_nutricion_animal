@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const dosisVitaminasInput = document.getElementById("dosisVitaminas");
     const volverBtn = document.getElementById("btnVolver");
     const nuevoBtn = document.getElementById("btnNuevo");
+    const tablaBodyConsumoGramos = document.querySelector("#tablaConsumoGramos tbody");
      const tablaBodyConsumoFinal = document.querySelector("#tablaConsumoFinal tbody");
 
     // 🔥 FUNCIONES PARA EFECTO DE BARRIDO 🔥
@@ -124,36 +125,59 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function actualizarTablaConsumoGramos(genero) {
-        const tablaBody = document.querySelector("#tablaConsumoGramos tbody");
-        tablaBody.innerHTML = "";
 
-        const datosMachos = [
-            [13, 17, 21, 23, 27, 31, 35, 167],
-            [39, 44, 49, 54, 59, 64, 70, 379],
-            [77, 83, 90, 97, 104, 112, 119, 682],
-            [124, 130, 136, 142, 148, 154, 160, 994],
-            [165, 171, 177, 184, 192, 200, 209, 1298],
-            [212, 215, 218, 221, 225, 229, 233, 1553]
+
+    function actualizarTablaConsumoGramos() {
+        const genero = obtenerGeneroSeleccionado();
+        tablaBodyConsumoGramos.innerHTML = ""; // Limpia la tabla antes de llenarla
+
+        // 🔥 Datos base de consumo en gramos
+        const consumoMachos = [
+            [13, 17, 21, 23, 27, 31, 35],
+            [39, 44, 49, 54, 59, 64, 70],
+            [77, 83, 90, 97, 104, 112, 119],
+            [124, 130, 136, 142, 148, 154, 160],
+            [165, 171, 177, 184, 192, 200, 209],
+            [212, 215, 218, 221, 225, 229, 233]
         ];
 
-        const datosHembras = [
-            [13, 17, 21, 23, 27, 31, 35, 167],
-            [37, 44, 47, 54, 57, 63, 68, 370],
-            [73, 79, 84, 89, 92, 98, 103, 618],
-            [111, 116, 124, 126, 134, 142, 144, 897],
-            [151, 155, 161, 163, 165, 167, 169, 1131],
-            [175, 179, 184, 189, 193, 197, 199, 1316],
-            [203, 203, 205, 204, 207, 208, 209, 1439],
-            [212, 215, 218, 221, 225, 229, 233, 1553]
+        const consumoHembras = [
+            [13, 17, 21, 23, 27, 31, 35],
+            [37, 44, 47, 54, 57, 63, 68],
+            [73, 79, 84, 89, 92, 98, 103],
+            [111, 116, 124, 126, 134, 142, 144],
+            [151, 155, 161, 163, 165, 167, 169],
+            [175, 179, 184, 189, 193, 197, 199],
+            [203, 203, 205, 204, 207, 208, 209],
+            [212, 215, 218, 221, 225, 229, 233]
         ];
 
-        const datos = genero === "Macho" ? datosMachos : datosHembras;
-        datos.forEach((fila, i) => {
-            tablaBody.innerHTML += `<tr><td>${i + 1}</td>${fila.map(d => `<td>${d}</td>`).join("")}</tr>`;
+        const datos = genero === "Macho" ? consumoMachos : consumoHembras;
+        let consumoAcumuladoGramos = 0; // 🔥 Variable acumulativa de consumo
+
+        datos.forEach((fila, semanaIndex) => {
+            let filaHTML = `<tr><td>${semanaIndex + 1}</td>`;
+            let totalSemana = fila.reduce((acc, val) => acc + val, 0); // 🔥 Suma de la semana
+
+            consumoAcumuladoGramos += totalSemana; // 🔥 Acumulación progresiva
+            let consumoAcumuladoKg = (consumoAcumuladoGramos / 1000).toFixed(3); // 🔥 Conversión a kg con 3 decimales
+
+            fila.forEach(valor => {
+                filaHTML += `<td>${valor}</td>`;
+            });
+
+            filaHTML += `<td><b>${totalSemana} g</b></td>`; // 🔥 Total semanal en gramos
+            filaHTML += `<td><b>${consumoAcumuladoGramos} g</b></td>`; // 🔥 Consumo acumulado en gramos
+            filaHTML += `<td><b style="color: #00796B;">${consumoAcumuladoKg} kg</b></td>`; // 🔥 Consumo acumulado en kg
+            filaHTML += `</tr>`;
+
+            tablaBodyConsumoGramos.innerHTML += filaHTML;
         });
     }
-     function actualizarTablaConsumoFinal() {
+
+
+    //Tabla consumo final
+    function actualizarTablaConsumoFinal() {
         const genero = obtenerGeneroSeleccionado();
         tablaBodyConsumoFinal.innerHTML = ""; // Limpia la tabla antes de llenarla
 
@@ -161,23 +185,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 🔥 Datos base de consumo en gramos
         const consumoMachos = [
-            [13, 17, 21, 23, 27, 31, 35, 167],
-            [39, 44, 49, 54, 59, 64, 70, 379],
-            [77, 83, 90, 97, 104, 112, 119, 682],
-            [124, 130, 136, 142, 148, 154, 160, 994],
-            [165, 171, 177, 184, 192, 200, 209, 1298],
-            [212, 215, 218, 221, 225, 229, 233, 1553]
+            [13, 17, 21, 23, 27, 31, 35],
+            [39, 44, 49, 54, 59, 64, 70],
+            [77, 83, 90, 97, 104, 112, 119],
+            [124, 130, 136, 142, 148, 154, 160],
+            [165, 171, 177, 184, 192, 200, 209],
+            [212, 215, 218, 221, 225, 229, 233]
         ];
 
         const consumoHembras = [
-            [13, 17, 21, 23, 27, 31, 35, 167],
-            [37, 44, 47, 54, 57, 63, 68, 370],
-            [73, 79, 84, 89, 92, 98, 103, 618],
-            [111, 116, 124, 126, 134, 142, 144, 897],
-            [151, 155, 161, 163, 165, 167, 169, 1131],
-            [175, 179, 184, 189, 193, 197, 199, 1316],
-            [203, 203, 205, 204, 207, 208, 209, 1439],
-            [212, 215, 218, 221, 225, 229, 233, 1553]
+            [13, 17, 21, 23, 27, 31, 35],
+            [37, 44, 47, 54, 57, 63, 68],
+            [73, 79, 84, 89, 92, 98, 103],
+            [111, 116, 124, 126, 134, 142, 144],
+            [151, 155, 161, 163, 165, 167, 169],
+            [175, 179, 184, 189, 193, 197, 199],
+            [203, 203, 205, 204, 207, 208, 209],
+            [212, 215, 218, 221, 225, 229, 233]
         ];
 
         const datos = genero === "Macho" ? consumoMachos : consumoHembras;
@@ -187,8 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let filaHTML = `<tr><td>${semanaIndex + 1}</td>`;
             let totalSemana = 0;
 
-            // 🔥 Multiplicamos cada día por la cantidad de pollos
-            fila.slice(0, 7).forEach(valor => {
+            fila.forEach(valor => {
                 let consumoTotal = valor * cantidadPollos;
                 totalSemana += consumoTotal;
                 filaHTML += `<td>${consumoTotal}</td>`;
@@ -207,13 +230,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (cantidadPollosInput) {
-        cantidadPollosInput.addEventListener("input", actualizarTablaConsumoFinal);
+        cantidadPollosInput.addEventListener("input", function () {
+            actualizarTablaConsumoGramos();
+            actualizarTablaConsumoFinal();
+        });
     }
 
     if (generoRadios.length > 0) {
         generoRadios.forEach(radio => {
-            radio.addEventListener("change", actualizarTablaConsumoFinal);
+            radio.addEventListener("change", function () {
+                actualizarTablaConsumoGramos();
+                actualizarTablaConsumoFinal();
+            });
         });
     }
-
 });
