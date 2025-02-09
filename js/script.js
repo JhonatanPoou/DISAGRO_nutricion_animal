@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
          actualizarTablaConsumoGramos(genero);
     }
 
-    function actualizarTablaConsumoGramos(genero) {
+  function actualizarTablaConsumoGramos(genero) {
     const tablaBody = document.querySelector("#tablaConsumoGramos tbody");
     tablaBody.innerHTML = ""; // Limpiar tabla antes de llenarla
 
@@ -179,10 +179,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     for (let i = 0; i < semanas; i++) {
         let fila = `<tr><td>${i + 1}</td>`;
-        consumoDatos[i].forEach(valor => {
-            fila += `<td>${valor}</td>`;
-        });
-        fila += `</tr>`;
+
+        // Añadir valores de consumo por día
+        for (let j = 0; j < 8; j++) {
+            fila += `<td>${consumoDatos[i][j]}</td>`;
+        }
+
+        // Agregar "g" a Consumo Acumulado
+        let consumoAcumuladoGramos = `${consumoDatos[i][8]} g`;
+
+        // Nueva columna con conversión a kg
+        let consumoAcumuladoKg = (consumoDatos[i][8] / 1000).toFixed(2) + " kg";
+
+        fila += `<td>${consumoAcumuladoGramos}</td><td>${consumoAcumuladoKg}</td></tr>`;
         tablaBody.innerHTML += fila;
     }
 }
