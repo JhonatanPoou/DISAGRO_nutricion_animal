@@ -303,3 +303,42 @@ cursor: pointer;
     font-weight: bold;
     color: #00796B; /* 🔹 Verde oscuro */
 }
+
+/* 🔥 Estilo de la Tercera Tabla */
+#tablaConsumoFinal {
+    width: 100%;
+    max-width: 1100px;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 🔥 Diseño del encabezado */
+#tablaConsumoFinal th {
+    background: #004d00; /* Verde oscuro */
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+}
+
+/* 🔥 Estilo de celdas */
+#tablaConsumoFinal td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* 🔥 Alternar colores de fila */
+#tablaConsumoFinal tbody tr:nth-child(even) {
+    background: #f4f4f4;
+}
+
+/* 🔥 Resaltar última columna (Consumo Acumulado en kg) */
+#tablaConsumoFinal td:last-child {
+    font-weight: bold;
+    color: #00796B; /* Verde oscuro */
+}
+
