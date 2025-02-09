@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let totalSemana = 0;
 
             fila.forEach(valor => {
-                let consumoTotal = valor * cantidadPollos;
+                let consumoTotal = valor + cantidadPollos;
                 totalSemana += consumoTotal;
                 filaHTML += `<td>${consumoTotal}</td>`;
             });
