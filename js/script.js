@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function actualizarTabla(genero) {
         tablaBody.innerHTML = "";
 
-        let semanas = (genero === "Macho") ? 6 : 8;
+        let semanas = (genero === "Macho") ? 5 : 7;
         let fases = ["Inicio", "Crecimiento", "Engorde", "Finalización", "Finalización"];
         let diasPorSemanaMacho = [10, 10, 10, 7, 5, 5];
         let diasPorSemanaHembra = [10, 10, 10, 7, 7, 7, 5, 5];
