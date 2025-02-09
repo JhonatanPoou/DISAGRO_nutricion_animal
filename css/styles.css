@@ -256,3 +256,46 @@ tbody tr:hover {
     background: #c8e6c9; /* Color suave al pasar el mouse */
 cursor: pointer;
 }
+/* 🔹 Estilos para la Tabla de Referencia */
+.tabla-referencia {
+    width: 90%;
+    max-width: 800px; /* Menos ancha */
+    margin: 20px auto;
+    font-size: 12px; /* Fuente más pequeña */
+}
+
+.tabla-referencia h3 {
+    text-align: center;
+    color: #003366;
+    font-size: 16px;
+}
+
+#tablaConsumoGramos {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #99c2ff;
+}
+
+#tablaConsumoGramos th {
+    background-color: #003366; /* Azul oscuro */
+    color: white;
+    padding: 8px;
+    border: 1px solid #99c2ff;
+}
+
+#tablaConsumoGramos td {
+    padding: 6px;
+    border: 1px solid #99c2ff;
+}
+
+#tablaConsumoGramos tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Filas alternas */
+}
+
+/* 🔹 Columna de "Consumo Acumulado (kg)" en azul tenue */
+#tablaConsumoGramos td:last-child {
+    font-weight: bold;
+    color: #003366;
+}
