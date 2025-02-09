@@ -146,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
             tablaBody.innerHTML += fila;
                    }
          actualizarTablaConsumoGramos(genero);
+         actualizarTablaConsumoFinal(genero);
     }
 
   function actualizarTablaConsumoGramos(genero) {
