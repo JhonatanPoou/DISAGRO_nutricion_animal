@@ -248,9 +248,6 @@ th {
     font-weight: bold;
 }
 
-tbody tr:nth-child(even) {
-    background: #f4f4f4;
-}
 
 tbody tr:hover {
     background: #c8e6c9; /* Color suave al pasar el mouse */
