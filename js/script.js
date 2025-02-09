@@ -144,8 +144,49 @@ document.addEventListener("DOMContentLoaded", function () {
                 </tr>
             `;
             tablaBody.innerHTML += fila;
-        }
+                   }
+         actualizarTablaConsumoGramos(genero);
     }
+
+    function actualizarTablaConsumoGramos(genero) {
+    const tablaBody = document.querySelector("#tablaConsumoGramos tbody");
+    tablaBody.innerHTML = ""; // Limpiar tabla antes de llenarla
+
+    // Datos para Machos
+    const consumoMachos = [
+        [13, 17, 21, 23, 27, 31, 35, 167, 167],
+        [39, 44, 49, 54, 59, 64, 70, 379, 546],
+        [77, 83, 90, 97, 104, 112, 119, 682, 1228],
+        [124, 130, 136, 142, 148, 154, 160, 994, 2222],
+        [165, 171, 177, 184, 192, 200, 209, 1298, 3520],
+        [212, 215, 218, 221, 225, 229, 233, 1553, 5073]
+    ];
+
+    // Datos para Hembras (con 2 semanas extra)
+    const consumoHembras = [
+        [13, 17, 21, 23, 27, 31, 35, 167, 167],
+        [37, 44, 47, 54, 57, 63, 68, 370, 537],
+        [73, 79, 84, 89, 92, 98, 103, 618, 1155],
+        [111, 116, 124, 126, 134, 142, 144, 897, 2052],
+        [151, 155, 161, 163, 165, 167, 169, 1131, 3183],
+        [175, 179, 184, 189, 193, 197, 199, 1316, 4499],
+        [203, 203, 205, 204, 207, 208, 209, 1439, 5938],
+        [225, 225, 225, 225, 225, 225, 225, 1575, 7513]
+    ];
+
+    const consumoDatos = genero === "Macho" ? consumoMachos : consumoHembras;
+    const semanas = consumoDatos.length;
+
+    for (let i = 0; i < semanas; i++) {
+        let fila = `<tr><td>${i + 1}</td>`;
+        consumoDatos[i].forEach(valor => {
+            fila += `<td>${valor}</td>`;
+        });
+        fila += `</tr>`;
+        tablaBody.innerHTML += fila;
+    }
+}
+
 
     function limpiarFormulario() {
         cantidadPollosInput.value = "";
