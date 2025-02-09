@@ -149,53 +149,60 @@ document.addEventListener("DOMContentLoaded", function () {
          actualizarTablaConsumoFinal(genero);
     }
 
-  function actualizarTablaConsumoGramos(genero) {
-    const tablaBody = document.querySelector("#tablaConsumoGramos tbody");
-    tablaBody.innerHTML = ""; // Limpiar tabla antes de llenarla
+function actualizarTablaConsumoFinal(genero) {
+    const tablaBody = document.querySelector("#tablaConsumoFinal tbody");
+    tablaBody.innerHTML = ""; // Limpia la tabla antes de llenarla
 
-    // Datos para Machos
+    let cantidadPollos = parseInt(document.getElementById("cantidadMachos").value) || 0;
+
+    // 🔥 Datos base de consumo en gramos
     const consumoMachos = [
-        [13, 17, 21, 23, 27, 31, 35, 167, 167],
-        [39, 44, 49, 54, 59, 64, 70, 379, 546],
-        [77, 83, 90, 97, 104, 112, 119, 682, 1228],
-        [124, 130, 136, 142, 148, 154, 160, 994, 2222],
-        [165, 171, 177, 184, 192, 200, 209, 1298, 3520],
-        [212, 215, 218, 221, 225, 229, 233, 1553, 5073]
+        [13, 17, 21, 23, 27, 31, 35],
+        [39, 44, 49, 54, 59, 64, 70],
+        [77, 83, 90, 97, 104, 112, 119],
+        [124, 130, 136, 142, 148, 154, 160],
+        [165, 171, 177, 184, 192, 200, 209],
+        [212, 215, 218, 221, 225, 229, 233]
     ];
 
-    // Datos para Hembras (con 2 semanas extra)
     const consumoHembras = [
-        [13, 17, 21, 23, 27, 31, 35, 167, 167],
-        [37, 44, 47, 54, 57, 63, 68, 370, 537],
-        [73, 79, 84, 89, 92, 98, 103, 618, 1155],
-        [111, 116, 124, 126, 134, 142, 144, 897, 2052],
-        [151, 155, 161, 163, 165, 167, 169, 1131, 3183],
-        [175, 179, 184, 189, 193, 197, 199, 1316, 4499],
-        [203, 203, 205, 204, 207, 208, 209, 1439, 5938],
-        [225, 225, 225, 225, 225, 225, 225, 1575, 7513]
+        [13, 17, 21, 23, 27, 31, 35],
+        [37, 44, 47, 54, 57, 63, 68],
+        [73, 79, 84, 89, 92, 98, 103],
+        [111, 116, 124, 126, 134, 142, 144],
+        [151, 155, 161, 163, 165, 167, 169],
+        [175, 179, 184, 189, 193, 197, 199],
+        [203, 203, 205, 204, 207, 208, 209],
+        [212, 215, 218, 221, 225, 229, 233]
     ];
 
     const consumoDatos = genero === "Macho" ? consumoMachos : consumoHembras;
     const semanas = consumoDatos.length;
 
+    let consumoAcumuladoGramos = 0;
+
     for (let i = 0; i < semanas; i++) {
         let fila = `<tr><td>${i + 1}</td>`;
+        let totalSemana = 0;
 
-        // Añadir valores de consumo por día
-        for (let j = 0; j < 8; j++) {
-            fila += `<td>${consumoDatos[i][j]}</td>`;
-        }
+        consumoDatos[i].forEach((valor, diaIndex) => {
+            let consumoTotal = valor * cantidadPollos; // 🔥 Se multiplica por la cantidad de pollos
+            totalSemana += consumoTotal; // 🔥 Sumar para el total de la semana
+            fila += `<td>${consumoTotal}</td>`;
+        });
 
-        // Agregar "g" a Consumo Acumulado
-        let consumoAcumuladoGramos = `${consumoDatos[i][8]} g`;
+        consumoAcumuladoGramos += totalSemana; // 🔥 Acumulación progresiva de consumo en gramos
+        let consumoAcumuladoKg = (consumoAcumuladoGramos / 1000).toFixed(3); // 🔥 Conversión a kg con 3 decimales
 
-        // Nueva columna con conversión a kg
-        let consumoAcumuladoKg = (consumoDatos[i][8] / 1000).toFixed(3) + " kg";
+        fila += `<td><b>${totalSemana} g</b></td>`; // 🔥 Total de la semana
+        fila += `<td><b>${consumoAcumuladoGramos} g</b></td>`; // 🔥 Consumo acumulado progresivo
+        fila += `<td><b style="color: #00796B;">${consumoAcumuladoKg} kg</b></td>`; // 🔥 Conversión a kg
+        fila += `</tr>`;
 
-        fila += `<td>${consumoAcumuladoGramos}</td><td>${consumoAcumuladoKg}</td></tr>`;
         tablaBody.innerHTML += fila;
     }
 }
+
 
     function actualizarTablaConsumoFinal(genero) {
     const tablaBody = document.querySelector("#tablaConsumoFinal tbody");
@@ -221,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
         [151, 155, 161, 163, 165, 167, 169],
         [175, 179, 184, 189, 193, 197, 199],
         [203, 203, 205, 204, 207, 208, 209],
-        [225, 225, 225, 225, 225, 225, 225]
+         [212, 215, 218, 221, 225, 229, 233]
     ];
 
     const consumoDatos = genero === "Macho" ? consumoMachos : consumoHembras;
