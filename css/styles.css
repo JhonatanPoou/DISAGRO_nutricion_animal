@@ -256,69 +256,52 @@ tbody tr:hover {
     background: #c8e6c9; /* Color suave al pasar el mouse */
 cursor: pointer;
 }
-
-/* 🔹 Contenedor de la Tabla de Referencia */
-.tabla-referencia {
-    width: 100%;
-    max-width: 600px; /* Reduce el ancho total */
-    margin: 10px auto; /* Reduce el margen para ahorrar espacio */
-    font-size: 11px; /* Fuente más compacta */
-    text-align: center;
-}
-
-/* 🔹 Estilos para la Tabla */
+/* 🔹 Estilos para la Tabla de Consumo en Gramos */
 #tablaConsumoGramos {
     width: 100%;
+    max-width: 600px; /* 🔹 Reducimos el ancho */
     border-collapse: collapse;
-    background: white;
-    border: 1px solid #B0B0B0; /* Gris tenue */
-    text-align: center;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* 🔹 Sombra sutil */
+    background: rgba(255, 255, 255, 0.9);
+    margin: 20px auto;
+    font-size: 12px; /* 🔹 Fuente más compacta */
 }
 
-/* 🔹 Encabezado de la Tabla (Fondo oscuro) */
-#tablaConsumoGramos th {
-    background: #333; /* Negro suave */
+/* 🔹 Encabezado con fondo más oscuro */
+#tablaConsumoGramos thead th {
+    background-color: #444; /* 🔹 Gris oscuro */
     color: white;
+    text-transform: uppercase;
     font-weight: bold;
-    padding: 5px; /* Reduce padding */
+    padding: 12px;
 }
 
-/* 🔹 Ajuste del Ancho de las Últimas Columnas */
-#tablaConsumoGramos th:nth-last-child(2), 
-#tablaConsumoGramos td:nth-last-child(2) {
-    width: 80px; /* Reducir el ancho de "Consumo Acumulado (g)" */
-}
-
-#tablaConsumoGramos th:last-child, 
-#tablaConsumoGramos td:last-child {
-    width: 120px; /* Ampliar la columna "Consumo Acumulado (kg)" */
-    font-weight: bold;
-    color: #00796B; /* Verde oscuro */
-}
-
-/* 🔹 Celdas de la Tabla */
+/* 🔹 Celdas de la tabla */
+#tablaConsumoGramos th, 
 #tablaConsumoGramos td {
-    padding: 4px; /* Reduce el padding para hacerla más compacta */
-    border: 1px solid #B0B0B0;
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.05); /* 🔹 Gris muy claro */
+    color: #333;
+}
+
+/* 🔹 Hover solo en la fila, sin resaltar columnas */
+#tablaConsumoGramos tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* 🔹 Gris claro */
+}
+
+/* 🔹 Evitar el efecto de resaltado en columnas */
+#tablaConsumoGramos tbody td:hover::before {
+    content: none;
 }
 
 /* 🔹 Ajuste de la Columna de Consumo Acumulado */
-#tablaConsumoGramos td:nth-last-child(2) {
+#tablaConsumoGramos td:nth-last-child(2) { /* 🔹 Penúltima columna: "Consumo Acumulado" */
     font-weight: bold;
-    color: #444; /* Gris oscuro para diferenciación */
 }
 
-/* 🔹 Alternar colores de fila */
-#tablaConsumoGramos tbody tr:nth-child(odd) {
-    background: #F5F5F5; /* Un gris más claro */
-}
-
-#tablaConsumoGramos tbody tr:nth-child(even) {
-    background: white;
-}
-
-/* 🔹 Hover para filas */
-#tablaConsumoGramos tbody tr:hover {
-    background: #E0E0E0;
-    cursor: pointer;
+#tablaConsumoGramos td:last-child { /* 🔹 Última columna: "Consumo Acumulado (kg)" */
+    font-weight: bold;
+    color: #00796B; /* 🔹 Verde oscuro */
 }
