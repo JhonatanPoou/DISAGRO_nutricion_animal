@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const generoRadios = document.querySelectorAll("input[name='genero']");
     const buttonContainer = document.querySelector(".button-container");
     const tablaBody = document.querySelector("#tablaProduccion tbody");
+    const tablaConsumoGramosBody = document.querySelector("#tablaConsumoGramos tbody");
+    const tablaConsumoFinalBody = document.querySelector("#tablaConsumoFinal tbody");
     const cantidadPollosInput = document.getElementById("cantidadMachos");
     const dosisNucleoInput = document.getElementById("dosisNucleo");
     const dosisVitaminasInput = document.getElementById("dosisVitaminas");
@@ -16,12 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
             let menuPrincipal = document.getElementById("menuPrincipal");
             let simulacion = document.getElementById("simulacionPollo");
 
-            console.log("Ocultando menú principal...");
             menuPrincipal.classList.add("hidden");
             menuPrincipal.classList.remove("show");
 
             setTimeout(() => {
-                console.log("Mostrando simulación...");
                 simulacion.style.display = "flex";
                 simulacion.classList.remove("hidden");
                 simulacion.classList.add("show");
@@ -36,18 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
         let simulacion = document.getElementById("simulacionPollo");
         let menuPrincipal = document.getElementById("menuPrincipal");
 
-        console.log("Ocultando simulación...");
         simulacion.classList.remove("show");
         simulacion.classList.add("hidden");
 
         setTimeout(() => {
-            console.log("Mostrando menú principal...");
             simulacion.style.display = "none";
             menuPrincipal.classList.remove("hidden");
             menuPrincipal.classList.add("show");
             menuPrincipal.style.display = "flex";
-            menuPrincipal.style.justifyContent = "center";
-            menuPrincipal.style.alignItems = "center";
         }, 500);
     };
 
@@ -144,6 +140,34 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function actualizarTablaConsumoGramos(genero) {
+        tablaConsumoGramosBody.innerHTML = "";
+
+        const consumoMachos = [
+            [13, 17, 21, 23, 27, 31, 35],
+            [39, 44, 49, 54, 59, 64, 70],
+            [77, 83, 90, 97, 104, 112, 119]
+        ];
+
+        const consumoHembras = [
+            [13, 17, 21, 23, 27, 31, 35],
+            [37, 44, 47, 54, 57, 63, 68],
+            [73, 79, 84, 89, 92, 98, 103]
+        ];
+
+        const consumoDatos = genero === "Macho" ? consumoMachos : consumoHembras;
+        const semanas = consumoDatos.length;
+
+        for (let i = 0; i < semanas; i++) {
+            let fila = `<tr><td>${i + 1}</td>`;
+            consumoDatos[i].forEach(valor => {
+                fila += `<td>${valor}</td>`;
+            });
+            fila += `</tr>`;
+            tablaConsumoGramosBody.innerHTML += fila;
+        }
+    }
+
     function limpiarFormulario() {
         cantidadPollosInput.value = "";
         dosisNucleoInput.value = "";
@@ -151,3 +175,4 @@ document.addEventListener("DOMContentLoaded", function () {
         tablaBody.innerHTML = "";
     }
 });
+
