@@ -263,39 +263,41 @@ cursor: pointer;
     margin: 20px auto;
     font-size: 12px; /* Fuente más pequeña */
 }
-
-.tabla-referencia h3 {
+/* 🔹 Contenedor de la Tabla de Referencia */
+.tabla-referencia {
+    width: 100%;
+    max-width: 600px; /* Reduce el ancho total */
+    margin: 20px auto;
+    font-size: 11px; /* Fuente más compacta */
     text-align: center;
-    color: #003366;
-    font-size: 16px;
 }
 
+/* 🔹 Estilos para la Tabla */
 #tablaConsumoGramos {
     width: 100%;
     border-collapse: collapse;
+    background: white;
+    border: 1px solid #B0B0B0; /* Gris tenue */
     text-align: center;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    border: 1px solid #99c2ff;
 }
 
+/* 🔹 Encabezado de la Tabla */
 #tablaConsumoGramos th {
-    background-color: #003366; /* Azul oscuro */
+    background-color: #2E2E2E; /* Gris oscuro */
     color: white;
-    padding: 8px;
-    border: 1px solid #99c2ff;
+    padding: 5px;
+    border: 1px solid #B0B0B0;
+    font-weight: bold;
 }
 
+/* 🔹 Celdas de la Tabla */
 #tablaConsumoGramos td {
-    padding: 6px;
-    border: 1px solid #99c2ff;
+    padding: 4px;
+    border: 1px solid #B0B0B0;
 }
 
-#tablaConsumoGramos tbody tr:nth-child(even) {
-    background-color: #f2f2f2; /* Filas alternas */
-}
-
-/* 🔹 Columna de "Consumo Acumulado (kg)" en azul tenue */
+/* 🔹 Ajuste de la Columna de Consumo Acumulado */
 #tablaConsumoGramos td:last-child {
     font-weight: bold;
-    color: #003366;
+    color: #00796B; /* Verde oscuro */
 }
