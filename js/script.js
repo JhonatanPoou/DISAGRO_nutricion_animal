@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let consumoAcumuladoGramos = `${consumoDatos[i][8]} g`;
 
         // Nueva columna con conversión a kg
-        let consumoAcumuladoKg = (consumoDatos[i][8] / 1000).toFixed(2) + " kg";
+        let consumoAcumuladoKg = (consumoDatos[i][8] / 1000).toFixed(3) + " kg";
 
         fila += `<td>${consumoAcumuladoGramos}</td><td>${consumoAcumuladoKg}</td></tr>`;
         tablaBody.innerHTML += fila;
