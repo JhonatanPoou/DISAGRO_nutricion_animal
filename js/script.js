@@ -52,103 +52,88 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // Verifica si los elementos existen antes de agregar eventos
+    function actualizarTodo() {
+        let generoSeleccionado = document.querySelector("input[name='genero']:checked")?.value || "Macho";
+        actualizarTabla(generoSeleccionado);
+        actualizarTablaConsumoGramos(generoSeleccionado);
+        actualizarTablaConsumoFinal(generoSeleccionado);
+    }
+
     if (generoRadios.length > 0) {
         generoRadios.forEach(radio => {
-            radio.addEventListener("change", function () {
-                actualizarTablas(this.value);
-                if (document.querySelector("input[name='genero']:checked")) {
-                    buttonContainer.style.display = "flex";
-                }
-            });
-        });
-    } else {
-        console.error("⚠️ No se encontraron los radio buttons de género.");
-    }
-
-    if (cantidadPollosInput) {
-        cantidadPollosInput.addEventListener("input", function () {
-            actualizarTablas(document.querySelector("input[name='genero']:checked")?.value || "Macho");
+            radio.addEventListener("change", actualizarTodo);
         });
     }
 
-    if (volverBtn) {
-        volverBtn.addEventListener("click", volverMenu);
-    }
+    if (cantidadPollosInput) cantidadPollosInput.addEventListener("input", actualizarTodo);
+    if (dosisNucleoInput) dosisNucleoInput.addEventListener("input", actualizarTodo);
+    if (dosisVitaminasInput) dosisVitaminasInput.addEventListener("input", actualizarTodo);
 
-    if (nuevoBtn) {
-        nuevoBtn.addEventListener("click", function () {
-            limpiarFormulario();
-        });
-    }
+    if (volverBtn) volverBtn.addEventListener("click", volverMenu);
+    if (nuevoBtn) nuevoBtn.addEventListener("click", () => limpiarFormulario());
+    if (exportarPDFBtn) exportarPDFBtn.addEventListener("click", () => generarPDF());
+    if (exportarJPGBtn) exportarJPGBtn.addEventListener("click", () => exportarJPG());
 
-    if (exportarPDFBtn) {
-        exportarPDFBtn.addEventListener("click", function () {
-            generarPDF();
-        });
-    }
-
-    if (exportarJPGBtn) {
-        exportarJPGBtn.addEventListener("click", function () {
-            exportarJPG();
-        });
-    }
-
-    function actualizarTablas(genero) {
-        actualizarTablaProduccion(genero);
-        actualizarTablaConsumoGramos(genero);
-        actualizarTablaConsumoFinal(genero);
-    }
-
-    function actualizarTablaProduccion(genero) {
+    function actualizarTablaConsumoFinal(genero) {
+        const tablaBody = document.querySelector("#tablaConsumoFinal tbody");
         tablaBody.innerHTML = "";
 
-        let semanas = (genero === "Macho") ? 5 : 7;
-        let fases = ["Inicio", "Crecimiento", "Engorde", "Finalización", "Finalización"];
-        let diasPorSemanaMacho = [10, 10, 10, 7, 5];
-        let diasPorSemanaHembra = [10, 10, 10, 7, 7, 7, 5];
-
-        let consumoAcumuladoMacho = [0.299, 0.81, 1.449, 1.389, 1.126];
-        let consumoAcumuladoHembra = [0.295, 0.757, 1.306, 1.179, 1.368, 1.483, 1.125];
-
         let cantidadPollos = parseInt(cantidadPollosInput.value) || 0;
-        let dosisNucleo = parseFloat(dosisNucleoInput.value) || 1;
-        let dosisVitaminas = parseFloat(dosisVitaminasInput.value) || 1;
+        const consumoDatos = genero === "Macho" ? consumoMachos : consumoHembras;
+        const semanas = consumoDatos.length;
 
-        for (let i = 1; i <= semanas; i++) {
-            let fase = fases[Math.min(i - 1, fases.length - 1)];
-            let dias = (genero === "Macho") ? diasPorSemanaMacho[i - 1] : diasPorSemanaHembra[i - 1];
-            let consumoAcumulado = (genero === "Macho") ? consumoAcumuladoMacho[i - 1] : consumoAcumuladoHembra[i - 1];
-            let consumoLote = (cantidadPollos * consumoAcumulado).toFixed(2);
-            let kgNucleoDISAGRO = ((consumoLote * dosisNucleo) / 1000).toFixed(2);
-            let bolsasNucleoDISAGRO = (kgNucleoDISAGRO / dosisNucleo).toFixed(2);
-            let kgPremezclaVitaminas = ((consumoLote * dosisVitaminas) / 1000).toFixed(2);
-            let bolsasPremezclaVitaminas = (kgPremezclaVitaminas / dosisVitaminas).toFixed(2);
+        let consumoAcumuladoGramos = 0;
 
-            let fila = `
-                <tr>
-                    <td>${i}</td>
-                    <td>${fase}</td>
-                    <td>${dias}</td>
-                    <td>${consumoAcumulado}</td>
-                    <td>${consumoLote}</td>
-                    <td>${kgNucleoDISAGRO}</td>
-                    <td>${bolsasNucleoDISAGRO}</td>
-                    <td>${kgPremezclaVitaminas}</td>
-                    <td>${bolsasPremezclaVitaminas}</td>
-                </tr>
-            `;
+        for (let i = 0; i < semanas; i++) {
+            let fila = `<tr><td>${i + 1}</td>`;
+            let totalSemana = 0;
+
+            consumoDatos[i].forEach(valor => {
+                let consumoTotal = valor * cantidadPollos;
+                totalSemana += consumoTotal;
+                fila += `<td>${consumoTotal}</td>`;
+            });
+
+            consumoAcumuladoGramos += totalSemana;
+            let consumoAcumuladoKg = (consumoAcumuladoGramos / 1000).toFixed(3);
+
+            fila += `<td><b>${totalSemana} g</b></td>`;
+            fila += `<td><b>${consumoAcumuladoGramos} g</b></td>`;
+            fila += `<td><b style="color: #00796B;">${consumoAcumuladoKg} kg</b></td>`;
+            fila += `</tr>`;
+
             tablaBody.innerHTML += fila;
         }
     }
 
     function actualizarTablaConsumoGramos(genero) {
-        console.log("Actualizar tabla de consumo en gramos para:", genero);
-        // Aquí asegúrate de que los cálculos sean correctos
-    }
+        const tablaBody = document.querySelector("#tablaConsumoGramos tbody");
+        tablaBody.innerHTML = "";
 
-    function actualizarTablaConsumoFinal(genero) {
-        console.log("Actualizar tabla de consumo final para:", genero);
-        // Aquí asegúrate de que los cálculos sean correctos
+        const consumoDatos = genero === "Macho" ? consumoMachos : consumoHembras;
+        const semanas = consumoDatos.length;
+
+        let consumoAcumulado = 0;
+
+        for (let i = 0; i < semanas; i++) {
+            let fila = `<tr><td>${i + 1}</td>`;
+            let totalSemana = 0;
+
+            consumoDatos[i].forEach(valor => {
+                totalSemana += valor;
+                fila += `<td>${valor}</td>`;
+            });
+
+            consumoAcumulado += totalSemana;
+            let consumoAcumuladoKg = (consumoAcumulado / 1000).toFixed(3);
+
+            fila += `<td><b>${totalSemana} g</b></td>`;
+            fila += `<td><b>${consumoAcumulado} g</b></td>`;
+            fila += `<td><b style="color: #00796B;">${consumoAcumuladoKg} kg</b></td>`;
+            fila += `</tr>`;
+
+            tablaBody.innerHTML += fila;
+        }
     }
 
     function limpiarFormulario() {
@@ -157,5 +142,25 @@ document.addEventListener("DOMContentLoaded", function () {
         dosisVitaminasInput.value = "";
         tablaBody.innerHTML = "";
     }
-});
 
+    // Datos base de consumo en gramos
+    const consumoMachos = [
+        [13, 17, 21, 23, 27, 31, 35],
+        [39, 44, 49, 54, 59, 64, 70],
+        [77, 83, 90, 97, 104, 112, 119],
+        [124, 130, 136, 142, 148, 154, 160],
+        [165, 171, 177, 184, 192, 200, 209],
+        [212, 215, 218, 221, 225, 229, 233]
+    ];
+
+    const consumoHembras = [
+        [13, 17, 21, 23, 27, 31, 35],
+        [37, 44, 47, 54, 57, 63, 68],
+        [73, 79, 84, 89, 92, 98, 103],
+        [111, 116, 124, 126, 134, 142, 144],
+        [151, 155, 161, 163, 165, 167, 169],
+        [175, 179, 184, 189, 193, 197, 199],
+        [203, 203, 205, 204, 207, 208, 209],
+        [212, 215, 218, 221, 225, 229, 233]
+    ];
+});
