@@ -259,14 +259,15 @@ cursor: pointer;
 /* 🔹 Estilos para la Tabla de Consumo en Gramos */
 #tablaConsumoGramos {
     width: 100%;
-    max-width: 600px; /* 🔹 Reducimos el ancho */
+    max-width: 600px;
     border-collapse: collapse;
     overflow: hidden;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* 🔹 Sombra sutil */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     background: rgba(255, 255, 255, 0.9);
-    margin: 20px auto;
-    font-size: 12px; /* 🔹 Fuente más compacta */
+    margin: 20px 0 20px 10px; /* 🔹 Alineada a la izquierda */
+    font-size: 11px;
 }
+
 
 /* 🔹 Encabezado con fondo más oscuro */
 #tablaConsumoGramos thead th {
