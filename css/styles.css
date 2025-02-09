@@ -270,7 +270,7 @@ cursor: pointer;
 #tablaConsumoGramos thead th {
     background-color: #444; /* 🔹 Gris oscuro */
     color: white;
-    text-transform: uppercase;
+    text-transform: none;
     font-weight: bold;
     padding: 12px;
 }
