@@ -201,6 +201,8 @@ function actualizarTablaConsumoFinal(genero) {
 
         tablaBody.innerHTML += fila;
     }
+    actualizarTablaConsumoGramos(generoSeleccionado);
+     actualizarTablaConsumoFinal(generoSeleccionado);
 }
 
 
