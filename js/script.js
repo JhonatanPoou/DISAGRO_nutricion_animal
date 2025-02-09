@@ -196,13 +196,14 @@ document.addEventListener("DOMContentLoaded", function () {
         tablaBody.innerHTML += fila;
     }
 }
+
     function actualizarTablaConsumoFinal(genero) {
     const tablaBody = document.querySelector("#tablaConsumoFinal tbody");
     tablaBody.innerHTML = ""; // Limpia la tabla antes de llenarla
 
     let cantidadPollos = parseInt(document.getElementById("cantidadMachos").value) || 0;
 
-    // Datos base de consumo en gramos
+    // 🔥 Datos base de consumo en gramos
     const consumoMachos = [
         [13, 17, 21, 23, 27, 31, 35],
         [39, 44, 49, 54, 59, 64, 70],
@@ -231,17 +232,20 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i = 0; i < semanas; i++) {
         let fila = `<tr><td>${i + 1}</td>`;
         let totalSemana = 0;
+        let acumuladoSemana = 0; // 🔥 Suma de la semana hasta el día actual
 
-        consumoDatos[i].forEach(valor => {
+        consumoDatos[i].forEach((valor, diaIndex) => {
             let consumoTotal = valor * cantidadPollos;
             totalSemana += consumoTotal;
+            acumuladoSemana += consumoTotal; // 🔥 Se acumula progresivamente
             fila += `<td>${consumoTotal}</td>`;
         });
 
-        consumoAcumuladoGramos += totalSemana;
-        let consumoAcumuladoKg = (consumoAcumuladoGramos / 1000).toFixed(3);
+        consumoAcumuladoGramos += totalSemana; // 🔥 Se suma el total de la semana al acumulado
+        let consumoAcumuladoKg = (consumoAcumuladoGramos / 1000).toFixed(3); // 🔥 Convertir a kg con 3 decimales
 
         fila += `<td><b>${totalSemana} g</b></td>`;
+        fila += `<td><b>${consumoAcumuladoGramos} g</b></td>`; // 🔥 Ahora se acumula correctamente
         fila += `<td><b style="color: #00796B;">${consumoAcumuladoKg} kg</b></td>`;
         fila += `</tr>`;
 
@@ -249,8 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 }
 
-
-
+    
     function limpiarFormulario() {
         cantidadPollosInput.value = "";
         dosisNucleoInput.value = "";
