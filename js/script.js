@@ -195,6 +195,59 @@ document.addEventListener("DOMContentLoaded", function () {
         tablaBody.innerHTML += fila;
     }
 }
+    function actualizarTablaConsumoFinal(genero) {
+    const tablaBody = document.querySelector("#tablaConsumoFinal tbody");
+    tablaBody.innerHTML = ""; // Limpia la tabla antes de llenarla
+
+    let cantidadPollos = parseInt(document.getElementById("cantidadMachos").value) || 0;
+
+    // Datos base de consumo en gramos
+    const consumoMachos = [
+        [13, 17, 21, 23, 27, 31, 35],
+        [39, 44, 49, 54, 59, 64, 70],
+        [77, 83, 90, 97, 104, 112, 119],
+        [124, 130, 136, 142, 148, 154, 160],
+        [165, 171, 177, 184, 192, 200, 209],
+        [212, 215, 218, 221, 225, 229, 233]
+    ];
+
+    const consumoHembras = [
+        [13, 17, 21, 23, 27, 31, 35],
+        [37, 44, 47, 54, 57, 63, 68],
+        [73, 79, 84, 89, 92, 98, 103],
+        [111, 116, 124, 126, 134, 142, 144],
+        [151, 155, 161, 163, 165, 167, 169],
+        [175, 179, 184, 189, 193, 197, 199],
+        [203, 203, 205, 204, 207, 208, 209],
+        [225, 225, 225, 225, 225, 225, 225]
+    ];
+
+    const consumoDatos = genero === "Macho" ? consumoMachos : consumoHembras;
+    const semanas = consumoDatos.length;
+
+    let consumoAcumuladoGramos = 0;
+
+    for (let i = 0; i < semanas; i++) {
+        let fila = `<tr><td>${i + 1}</td>`;
+        let totalSemana = 0;
+
+        consumoDatos[i].forEach(valor => {
+            let consumoTotal = valor * cantidadPollos;
+            totalSemana += consumoTotal;
+            fila += `<td>${consumoTotal}</td>`;
+        });
+
+        consumoAcumuladoGramos += totalSemana;
+        let consumoAcumuladoKg = (consumoAcumuladoGramos / 1000).toFixed(3);
+
+        fila += `<td><b>${totalSemana} g</b></td>`;
+        fila += `<td><b style="color: #00796B;">${consumoAcumuladoKg} kg</b></td>`;
+        fila += `</tr>`;
+
+        tablaBody.innerHTML += fila;
+    }
+}
+
 
 
     function limpiarFormulario() {
